@@ -1,0 +1,29 @@
+create table schedule(
+id serial primary key,
+schedule_number integer not null,
+point_A varchar not null,
+point_B varchar not null
+);
+insert into schedule(schedule_number, point_A, point_B) values(5, 'Asanbai', 'Dordoi');
+insert into schedule(schedule_number, point_A, point_B) values(7,'Tunguch','Kolmo');
+insert into schedule(schedule_number, point_A, point_B) values(138,'Kok-Jar','Ak-Ordo');
+
+create table buses(
+id serial references schedule(id),
+bus_number integer unique not null
+);
+insert into buses(bus_number)values(5);
+insert into buses(bus_number)values(7);
+insert into buses(bus_number)values(9);
+
+create table drivers(
+id serial references schedule(id) not null,
+fullname varchar not null
+);
+insert into drivers(fullname)values('Petrov Petr Gavrilovich');
+insert into drivers(fullname)values('Ivanov Ivan Petrovich');
+insert into drivers(fullname)values('Sidorov Alexandr Vladimirovich');
+
+insert into journal(driver, bus, schedule_time)values(1,3,current_timestamp);
+
+select * from schedule inner join buses on schedule.id = buses.id;
